@@ -30,10 +30,10 @@ const store = CatchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Invalid or Expired Token !, 400"));
   }
 
-  // 5) Activate the account
+  // 3) Activate the account
   await resetPassword(user, req.body.password);
 
-  // 6) Send the response
+  // 4) Send the response
   return SuccessResponse(res, 200, {
     message: "Password has been reset. Please login with new password.",
   });

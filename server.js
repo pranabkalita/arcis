@@ -6,6 +6,7 @@ import helmet from "helmet";
 import xss from "xss-clean";
 import dotnev from "dotenv";
 import express from "express";
+import compression from "compression";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 import contextService from "request-context";
@@ -61,6 +62,8 @@ app.use(contextService.middleware("request"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(compression());
 
 // Set Request Context
 app.all("*", (req, res, next) => {

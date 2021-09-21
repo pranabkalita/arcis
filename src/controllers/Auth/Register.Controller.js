@@ -30,10 +30,8 @@ const store = CatchAsyncErrors(async (req, res, next) => {
     emailVerification: { token, expiresAt },
   };
 
+  // 3) Create user
   const user = await createUser(newUserData);
-
-  // 3) Create a email verification
-  // const emailVerificationToken = await createEmailVerification(user);
 
   // 4) Send the email verification link
   await new Email(user).sendWelcome(token);

@@ -26,23 +26,34 @@ import AuthMiddleware, {
 } from "middleware/AuthMiddleware";
 import { uploadPostImage } from "middleware/ProfilePictureUpload";
 
-// Create the Auth Router
+/**
+ * Create the Auth Router
+ */
 const router = express.Router();
 
-// REGISTER : [POST] /api/v1/auth/register
+/**
+ * REGISTER : [POST] /api/v1/auth/register
+ */
 router.post(
   "/register",
   IsNotLoggedIn,
   registerValidator,
   RegisterController.store
 );
-// LOGIN : [POST] /api/v1/auth/login
+
+/**
+ * LOGIN : [POST] /api/v1/auth/login
+ */
 router.post("/login", IsNotLoggedIn, loginValidator, LoginController.store);
 
-// EMAIL VERIFICATION : [GET] /api/v1/auth/email/verify/:token
+/**
+ * EMAIL VERIFICATION : [GET] /api/v1/auth/email/verify/:token
+ */
 router.get("/email/verify/:token", EmailVerificationController.show);
 
-// FORGOT PASSWORD : [POST] /api/v1/auth/forgot-password
+/**
+ * FORGOT PASSWORD : [POST] /api/v1/auth/forgot-password
+ */
 router.post(
   "/forgot-password",
   IsNotLoggedIn,
@@ -50,7 +61,9 @@ router.post(
   ForgotPasswordController.store
 );
 
-// RESET PASSWORD : [POST] /api/v1/auth/reset-password/:token
+/**
+ * RESET PASSWORD : [POST] /api/v1/auth/reset-password/:token
+ */
 router.post(
   "/reset-password/:token",
   IsNotLoggedIn,
@@ -58,30 +71,45 @@ router.post(
   ResetPasswordController.store
 );
 
-// Protected Router: Protect all routes after this middleware
+/**
+ * *** Protected Router: Protect all routes after this middleware ***
+ */
 router.use(AuthMiddleware);
+/**
+ * *** Protected Router: Protect all routes after this middleware ***
+ */
 
-// GET PROFILE : [GET] /api/v1/auth/me
+/**
+ * GET PROFILE : [GET] /api/v1/auth/me
+ */
 router.get("/me", MeController.show);
 
-// UPDATE PROFILE : [PUT] /api/v1/auth/me
+/**
+ * UPDATE PROFILE : [PUT] /api/v1/auth/me
+ */
 router.put("/me", uploadPostImage, MeController.update);
 
-// RESEND EMAIL VERIFICATION : [POST] /api/v1/auth/email/verification-notification
+/**
+ * RESEND EMAIL VERIFICATION : [POST] /api/v1/auth/email/verification-notification
+ */
 router.post(
   "/email/verification-notification",
   IsNotActive,
   EmailVerificationController.store
 );
 
-// UPDATE PASSWORD : [PUT] /api/v1/auth/update-password
+/**
+ * UPDATE PASSWORD : [PUT] /api/v1/auth/update-password
+ */
 router.put(
   "/update-password",
   updatePasswordValidator,
   UpdatePasswordController.update
 );
 
-// LOGOUT : [POST] /api/v1/auth/logout
+/**
+ * LOGOUT : [POST] /api/v1/auth/logout
+ */
 router.post("/logout", LogoutController.store);
 
 export default router;
