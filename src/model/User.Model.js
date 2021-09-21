@@ -36,8 +36,8 @@ const UserSchema = new mongoose.Schema(
       expiresAt: { type: Date, required: false },
     },
     passwordReset: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "PasswordReset",
+      token: { type: String, required: false },
+      expiresAt: { type: Date, required: false },
     },
   },
   { timestamps: true }

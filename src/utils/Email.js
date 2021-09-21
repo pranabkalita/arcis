@@ -72,7 +72,7 @@ export default class Email {
   /**
    * Send email of Reset Password Link
    */
-  async sendResetPasswordLink({ token }) {
+  async sendResetPasswordLink(token) {
     const url = `${process.env.APP_URL}/api/v1/auth/reset-password/${this.user.email}/${token}`;
     const subject = `Reset your password !`;
     const templateParameters = {

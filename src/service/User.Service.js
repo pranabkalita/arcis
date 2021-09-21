@@ -1,6 +1,5 @@
 import { sign } from "utils/Jwt";
 import UserModel from "model/User.Model";
-import { deletePasswordReset } from "./PasswordReset.Service";
 
 /**
  * Creates and return a new user
@@ -122,8 +121,6 @@ export const resetPassword = async (userId, password) => {
     user.password = password;
     user.passwordReset = null;
     await user.save({ validateBeforeSave: false });
-
-    await deletePasswordReset(userId);
 
     return user;
   } catch (error) {

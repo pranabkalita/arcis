@@ -50,7 +50,7 @@ router.post(
   ForgotPasswordController.store
 );
 
-// RESET PASSWORD : [POST] /api/v1/auth/reset-password
+// RESET PASSWORD : [POST] /api/v1/auth/reset-password/:token
 router.post(
   "/reset-password/:token",
   IsNotLoggedIn,

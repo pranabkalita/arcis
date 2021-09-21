@@ -13,6 +13,6 @@ API with complete Authentication & Authorization using Express & Mongoose
 # TODO
 
 1. [✅] Merge Email verification
-2. [❌] Password Rest token in User model
+2. [✅] Password Rest token in User model
 3. [❌] Use compressor to compress the response
 4. [❌] Use DTOs for the POST/PUT/PATCH requests (or schema based validation to accept only defined propertied from request)
