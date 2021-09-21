@@ -3,8 +3,8 @@ import { validationResult } from "express-validator";
 import Email from "utils/Email";
 import { createUser } from "service/User.Service";
 import CatchAsyncErrors from "utils/CatchAsyncErrors";
+import { createToken } from "utils/EmailValidationToken";
 import { ErrorResponse, SuccessResponse } from "utils/Response";
-import { createEmailVerification } from "service/EmailVerification.Service";
 
 /**
  * Registers a user
@@ -20,15 +20,23 @@ const store = CatchAsyncErrors(async (req, res, next) => {
   }
 
   // 2) Register a user
-  const data = req.body;
-  data.role = undefined; // prevent user to update the roles
-  const user = await createUser(data);
+  const { firstName, lastName, email, password } = req.body;
+  const { token, expiresAt } = createToken();
+  const newUserData = {
+    firstName,
+    lastName,
+    email,
+    password,
+    emailVerification: { token, expiresAt },
+  };
+
+  const user = await createUser(newUserData);
 
   // 3) Create a email verification
-  const emailVerificationToken = await createEmailVerification(user);
+  // const emailVerificationToken = await createEmailVerification(user);
 
   // 4) Send the email verification link
-  await new Email(user).sendWelcome(emailVerificationToken);
+  await new Email(user).sendWelcome(token);
 
   // 5) Send back the user details
   return SuccessResponse(res, 200, {

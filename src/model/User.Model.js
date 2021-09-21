@@ -32,8 +32,8 @@ const UserSchema = new mongoose.Schema(
       },
     ],
     emailVerification: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "EmailVerification",
+      token: { type: String, required: false },
+      expiresAt: { type: Date, required: false },
     },
     passwordReset: {
       type: mongoose.Schema.Types.ObjectId,
